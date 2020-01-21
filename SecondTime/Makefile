@@ -1,3 +1,3 @@
 jcompile:
 	javac ./SecondTimePackage/*.java
-	javac Main.java && time java Main
+	javac SecondMain.java && time java SecondMain
