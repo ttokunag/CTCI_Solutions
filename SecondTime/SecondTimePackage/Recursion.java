@@ -9,6 +9,12 @@ public class Recursion {
 
 /* ****************************** PUBLIC FUNCTIONS ****************************** */ 
 
+    /**
+     * 
+     * @param str : a string with unique letters to be permutated
+     * @return : An ArrayList of permutaions
+     * 
+     */
     public ArrayList<String> permWithoutDups(String str) {
         // a linked-list containing characters in a given string
         // we use a linked-list because of frequent add/remove.
@@ -20,6 +26,12 @@ public class Recursion {
         return permWithoutDupsRecHelper(charList);
     }
 
+    /**
+     * 
+     * @param str : a string with duplicated letters to be permutated
+     * @return : An ArrayList of permutaions
+     * 
+     */
     public ArrayList<String> permWithDups(String str) {
         char[] sorted = str.toCharArray();
         Arrays.sort(sorted);
@@ -36,6 +48,12 @@ public class Recursion {
 
 /* ****************************** PRIVATE FUNCTIONS ****************************** */ 
 
+    /**
+     * 
+     * @param charList : a linked-list of a string to be permutated
+     * @return : an ArrayList of permutaions
+     * 
+     */
     private ArrayList<String> permWithoutDupsRecHelper(LinkedList<Character> charList) {
         ArrayList<String> result = new ArrayList<>();
         // base case
@@ -62,6 +80,12 @@ public class Recursion {
         return result;
     }
 
+    /**
+     * 
+     * @param charList : a linked-list of a string to be permutated
+     * @return : an ArrayList of permutaions
+     * 
+     */
     private ArrayList<String> permWithDupsHelper(
         LinkedList<Character> charList) {
 
