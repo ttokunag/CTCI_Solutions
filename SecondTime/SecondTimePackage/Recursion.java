@@ -45,6 +45,11 @@ public class Recursion {
         return permWithDupsHelper(charList);
     }
 
+    public void paren(int n) {
+        parenHelper("", n, 0, 0);
+        System.out.println();
+    }
+
 
 /* ****************************** PRIVATE FUNCTIONS ****************************** */ 
 
@@ -117,6 +122,21 @@ public class Recursion {
         }
 
         return result;
+    }
+
+    private void parenHelper(String parens, int n, int numOpen, int numClose) {
+        // rules out invalid parens
+        if (numOpen > n || numClose > numOpen) {
+            return;
+        } 
+        // prints a valid paren
+        else if (numClose == n) {
+            System.out.print(parens + " ");
+            return;
+        }
+        // recursive phase
+        parenHelper(parens + "(", n, numOpen + 1, numClose);
+        parenHelper(parens + ")", n, numOpen , numClose + 1);
     }
 
 }
