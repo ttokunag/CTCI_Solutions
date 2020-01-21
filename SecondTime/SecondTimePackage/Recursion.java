@@ -45,6 +45,11 @@ public class Recursion {
         return permWithDupsHelper(charList);
     }
 
+    /**
+     * 
+     * @param n : the number of paren pairs
+     * 
+     */
     public void paren(int n) {
         parenHelper("", n, 0, 0);
         System.out.println();
