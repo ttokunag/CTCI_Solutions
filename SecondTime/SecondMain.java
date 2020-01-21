@@ -9,8 +9,9 @@ public class SecondMain {
 
 		System.out.println("\n--------------------------------------------------");
 
-		ArrayList<String> perm = r.permWithoutDupsRec("abc");
-		for (String str : perm) {
+		// ArrayList<String> perm = r.permWithoutDups("abc");
+		ArrayList<String> permDups = r.permWithDups("aba");
+		for (String str : permDups) {
 			System.out.println(str);
 		}
 
