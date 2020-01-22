@@ -13,17 +13,20 @@ public class Moderate {
     }
 
     public int occurrenceOfWords(String str, String target) {
-        char[] punctuations = {
-            '.',',','!','?','"','[',']','(',')','{','}',';',':','<','>','/'};
+        // // create a list of punctuations to ignore
+        // char[] punctuations = {
+        //     '.',',','!','?','"','[',']','(',')','{','}',';',':','<','>','/'};
+        // // Translate a punctuation list into a HashSet
+        // HashSet<Character> punctuationSet = new HashSet<>();
+        // for (char punctuation : punctuations) {
+        //     punctuationSet.add(punctuation);
+        // }
 
-        // create a list of punctuations to ignore
-        HashSet<Character> punctuationSet = new HashSet<>();
-        for (char punctuation : punctuations) {
-            punctuationSet.add(punctuation);
-        }
+        // // generates a word list
+        // ArrayList<String> words = divideStringsIntoWords(str, punctuationSet);
 
-        // generates a word list
-        ArrayList<String> words = divideStringsIntoWords(str, punctuationSet);
+        String[] words = str.split("[\\p{Punct}\\s]+");
+
         // a hash table to record the occurrences of each word
         HashMap<String, Integer> occurrences = new HashMap<>();
         for (String word : words) {
@@ -41,23 +44,23 @@ public class Moderate {
         return result == null ? 0 : result;
     } 
 
-    private ArrayList<String> divideStringsIntoWords(String str, HashSet<Character> puncs) {
-        ArrayList<String> result = new ArrayList<>();
+    // private ArrayList<String> divideStringsIntoWords(String str, HashSet<Character> puncs) {
+    //     ArrayList<String> result = new ArrayList<>();
 
-        int startIndex = 0;
-        for (int i = 0; i < str.length(); i++) {
-            char currChar = str.charAt(i);
-            if (currChar == ' ' || puncs.contains(currChar) || String.valueOf(currChar).equals("'")) {
-                if (i != startIndex) {
-                    result.add(str.substring(startIndex, i));
-                }
-                startIndex = i + 1;
-            } else if (i == str.length() - 1) {
-                result.add(str.substring(startIndex, i + 1));
-            }
-        }
+    //     int startIndex = 0;
+    //     for (int i = 0; i < str.length(); i++) {
+    //         char currChar = str.charAt(i);
+    //         if (currChar == ' ' || puncs.contains(currChar) || String.valueOf(currChar).equals("'")) {
+    //             if (i != startIndex) {
+    //                 result.add(str.substring(startIndex, i));
+    //             }
+    //             startIndex = i + 1;
+    //         } else if (i == str.length() - 1) {
+    //             result.add(str.substring(startIndex, i + 1));
+    //         }
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
 }
