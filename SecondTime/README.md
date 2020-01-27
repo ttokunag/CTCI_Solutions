@@ -5,3 +5,5 @@
 #### 8.9 Parens
  ==> When building up lists with recursion, one way of completing that is inserting elements between every possible space
 
+#### 8.11 Coins
+ ==> (Order insensitive + Memoization) --> 2D matrix
