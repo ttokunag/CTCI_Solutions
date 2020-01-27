@@ -55,6 +55,11 @@ public class Recursion {
         System.out.println();
     }
 
+    public int coins(int n) {
+        int[] coinArr = {25,10,5,1};
+        return coinsHelper(n, coinArr, 0, new int[n + 1][coinArr.length]);
+    }
+
 
 /* ****************************** PRIVATE FUNCTIONS ****************************** */ 
 
@@ -142,6 +147,31 @@ public class Recursion {
         // recursive phase
         parenHelper(parens + "(", n, numOpen + 1, numClose);
         parenHelper(parens + ")", n, numOpen , numClose + 1);
+    }
+
+    private int coinsHelper(int n, int[] coinArr, int coinIdx, int[][] memo) {
+        /*
+         * About memo[n][coinIdx]:
+         * In this question, we ignore the order of coin combinations.
+         * Without specifying what type of coins we've used so far, 
+         * we'll have duplications.
+         */
+
+        // base cases
+        if (n < 0) {
+            return 0;
+        } else if (n == 0 || coinIdx == coinArr.length - 1) {
+            return 1;
+        }
+
+        // recursive phase
+        if (memo[n][coinIdx] == 0) {
+            for (int i = coinIdx; i < coinArr.length; i++) {
+                memo[n][coinIdx] += coinsHelper(n - coinArr[i], coinArr, i, memo);
+            }
+        }
+
+        return memo[n][coinIdx];
     }
 
 }

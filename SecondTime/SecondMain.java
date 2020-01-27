@@ -25,9 +25,12 @@ public class SecondMain {
 		// }
 		// System.out.println();
 
-		String str = "This is one of the most interesting books in this world. This's a book you must read";
-		System.out.println(m.occurrenceOfWords(str, "This"));
-		System.out.println(m.occurrenceOfWords(str, "That"));
+		// String str = "This is one of the most interesting books in this world. This's a book you must read";
+		// System.out.println(m.occurrenceOfWords(str, "This"));
+		// System.out.println(m.occurrenceOfWords(str, "That"));
+
+		System.out.println(r.coins(20050));
+		System.out.println(r.makeChange(20050));
 
 		System.out.println("--------------------------------------------------");
 	}
