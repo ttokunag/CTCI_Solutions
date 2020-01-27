@@ -30,7 +30,6 @@ public class SecondMain {
 		// System.out.println(m.occurrenceOfWords(str, "That"));
 
 		System.out.println(r.coins(20050));
-		System.out.println(r.makeChange(20050));
 
 		System.out.println("--------------------------------------------------");
 	}
