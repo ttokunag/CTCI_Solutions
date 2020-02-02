@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.HashSet;
+import java.util.HashMap;
 
 public class Recursion {
 
@@ -62,7 +63,6 @@ public class Recursion {
 
     public void printQueens(int size, int row, int[] cols) {
         if (row == size) {
-            // TODO: implement printQueens
             printQueens(cols);
             return;
         } else {
@@ -78,36 +78,51 @@ public class Recursion {
         }
     }
 
-    public boolean checkValid(int row, int col, int[] cols) {
-        // look through all queens so far
-        for (int i = 0; i < row; i++) {
-            // column check
-            if (col == cols[i]) {
-                return false;
-            }
-            // diagonal check
-            if (row - i == Math.abs(col - cols[i])) {
-                return false;
-            }
-        }
-        return true;
+    public int countEvalExpressions(String exp, boolean bool) {
+        return countEvalExpressionsHelper(exp, bool, new HashMap<>());
     }
 
-    public void printQueens(int[] cols) {
-        for (int i = 0; i < cols.length; i++) {
-            for (int j = 0; j < cols.length; j++) {
-                if (j == cols[i]) {
-                    System.out.print("Q ");
-                } else {
-                    System.out.print("* ");
-                }
+    private int countEvalExpressionsHelper(String exp, boolean bool, HashMap<String, Integer> memo) {
+        // base case
+        if ((exp.equals("0") && !bool) || (exp.equals("1") && bool)) {
+            return 1;
+        }
 
-                if (j == cols.length - 1) {
-                    System.out.println();
+        String key = exp + (bool ? "t" : "f");
+
+        if (memo.get(key) == null) {
+            int count = 0;
+            // when exp contains at least one boolean operator
+            for (int i = 1; i < exp.length(); i += 2) {
+                String left = exp.substring(0, i);  // left expression
+                char operator = exp.charAt(i);  // boolean operator
+                String right = exp.substring(i + 1, exp.length());  // right expression
+
+                int leftTrue = countEvalExpressionsHelper(left, true, memo);
+                int leftFalse = countEvalExpressionsHelper(left, false, memo);
+                int rightTrue = countEvalExpressionsHelper(right, true, memo);
+                int rightFalse = countEvalExpressionsHelper(right, false, memo);
+
+                // sum counts up
+                if (operator == '&' && bool) {
+                    count += (leftTrue * rightTrue);
+                } else if (operator == '&' && !bool) {
+                    count += (leftTrue * rightFalse + leftFalse * rightTrue + leftFalse * rightFalse);
+                } else if (operator == '|' && bool) {
+                    count += (leftTrue * rightFalse + leftFalse * rightTrue + leftTrue * rightTrue);
+                } else if (operator == '|' && !bool) {
+                    count += (leftFalse * rightFalse);
+                } else if (operator == '^' && bool) {
+                    count += (leftFalse * rightTrue + leftTrue * rightFalse);
+                } else if (operator == '^' && !bool) {
+                    count += (leftTrue * rightTrue + leftFalse * rightFalse);
                 }
             }
+
+            memo.put(key, count);
         }
-        System.out.println();
+        
+        return memo.get(key);
     }
 
 
@@ -222,6 +237,38 @@ public class Recursion {
         }
 
         return memo[n][coinIdx];
+    }
+
+    private boolean checkValid(int row, int col, int[] cols) {
+        // look through all queens so far
+        for (int i = 0; i < row; i++) {
+            // column check
+            if (col == cols[i]) {
+                return false;
+            }
+            // diagonal check
+            if (row - i == Math.abs(col - cols[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void printQueens(int[] cols) {
+        for (int i = 0; i < cols.length; i++) {
+            for (int j = 0; j < cols.length; j++) {
+                if (j == cols[i]) {
+                    System.out.print("Q ");
+                } else {
+                    System.out.print("* ");
+                }
+
+                if (j == cols.length - 1) {
+                    System.out.println();
+                }
+            }
+        }
+        System.out.println();
     }
 
 }

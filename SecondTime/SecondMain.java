@@ -31,8 +31,11 @@ public class SecondMain {
 
 		// System.out.println(r.coins(20050));
 
-		int size = 4;
-		r.printQueens(size, 0, new int[size]);
+		// int size = 4;
+		// r.printQueens(size, 0, new int[size]);
+
+		System.out.println(r.countEvalExpressions("1^0|0|1", false));
+		System.out.println(r.countEvalExpressions("0&0&0&1^1|0", true));
 
 		System.out.println("--------------------------------------------------");
 	}
