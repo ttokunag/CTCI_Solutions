@@ -82,49 +82,6 @@ public class Recursion {
         return countEvalExpressionsHelper(exp, bool, new HashMap<>());
     }
 
-    private int countEvalExpressionsHelper(String exp, boolean bool, HashMap<String, Integer> memo) {
-        // base case
-        if ((exp.equals("0") && !bool) || (exp.equals("1") && bool)) {
-            return 1;
-        }
-
-        String key = exp + (bool ? "t" : "f");
-
-        if (memo.get(key) == null) {
-            int count = 0;
-            // when exp contains at least one boolean operator
-            for (int i = 1; i < exp.length(); i += 2) {
-                String left = exp.substring(0, i);  // left expression
-                char operator = exp.charAt(i);  // boolean operator
-                String right = exp.substring(i + 1, exp.length());  // right expression
-
-                int leftTrue = countEvalExpressionsHelper(left, true, memo);
-                int leftFalse = countEvalExpressionsHelper(left, false, memo);
-                int rightTrue = countEvalExpressionsHelper(right, true, memo);
-                int rightFalse = countEvalExpressionsHelper(right, false, memo);
-
-                // sum counts up
-                if (operator == '&' && bool) {
-                    count += (leftTrue * rightTrue);
-                } else if (operator == '&' && !bool) {
-                    count += (leftTrue * rightFalse + leftFalse * rightTrue + leftFalse * rightFalse);
-                } else if (operator == '|' && bool) {
-                    count += (leftTrue * rightFalse + leftFalse * rightTrue + leftTrue * rightTrue);
-                } else if (operator == '|' && !bool) {
-                    count += (leftFalse * rightFalse);
-                } else if (operator == '^' && bool) {
-                    count += (leftFalse * rightTrue + leftTrue * rightFalse);
-                } else if (operator == '^' && !bool) {
-                    count += (leftTrue * rightTrue + leftFalse * rightFalse);
-                }
-            }
-
-            memo.put(key, count);
-        }
-        
-        return memo.get(key);
-    }
-
 
 /* ****************************** PRIVATE FUNCTIONS ****************************** */ 
 
@@ -269,6 +226,49 @@ public class Recursion {
             }
         }
         System.out.println();
+    }
+
+    private int countEvalExpressionsHelper(String exp, boolean bool, HashMap<String, Integer> memo) {
+        // base case
+        if ((exp.equals("0") && !bool) || (exp.equals("1") && bool)) {
+            return 1;
+        }
+
+        String key = exp + (bool ? "t" : "f");
+
+        if (memo.get(key) == null) {
+            int count = 0;
+            // when exp contains at least one boolean operator
+            for (int i = 1; i < exp.length(); i += 2) {
+                String left = exp.substring(0, i);  // left expression
+                char operator = exp.charAt(i);  // boolean operator
+                String right = exp.substring(i + 1, exp.length());  // right expression
+
+                int leftTrue = countEvalExpressionsHelper(left, true, memo);
+                int leftFalse = countEvalExpressionsHelper(left, false, memo);
+                int rightTrue = countEvalExpressionsHelper(right, true, memo);
+                int rightFalse = countEvalExpressionsHelper(right, false, memo);
+
+                // sum counts up
+                if (operator == '&' && bool) {
+                    count += (leftTrue * rightTrue);
+                } else if (operator == '&' && !bool) {
+                    count += (leftTrue * rightFalse + leftFalse * rightTrue + leftFalse * rightFalse);
+                } else if (operator == '|' && bool) {
+                    count += (leftTrue * rightFalse + leftFalse * rightTrue + leftTrue * rightTrue);
+                } else if (operator == '|' && !bool) {
+                    count += (leftFalse * rightFalse);
+                } else if (operator == '^' && bool) {
+                    count += (leftFalse * rightTrue + leftTrue * rightFalse);
+                } else if (operator == '^' && !bool) {
+                    count += (leftTrue * rightTrue + leftFalse * rightFalse);
+                }
+            }
+
+            memo.put(key, count);
+        }
+        
+        return memo.get(key);
     }
 
 }

@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Moderate {
 
+    /* *********************************************** PUBLIC FUNCTIONS *********************************************** */ 
+
     public void numSwapper(int[] arr, int i, int j) {
         arr[i] += arr[j];
         arr[j] = -(arr[j] - arr[i]);
@@ -41,6 +43,131 @@ public class Moderate {
         Integer result = occurrences.get(target.toLowerCase());
         return result == null ? 0 : result;
     } 
+
+    public int factorialZerosOne(int n) {
+        int numTwo = 0;
+        int numFive = 0;
+        for (int i = 1; i <= n; i++) {
+            int num = i;
+            while (num > 1 && (num % 2 == 0 || num % 5 == 0)) {
+                if (num % 2 == 0) {
+                    numTwo++;
+                    num /= 2;
+                }
+                if (num % 5 == 0) {
+                    numFive++;
+                    num /= 5;
+                }
+            }
+        }
+
+        return Math.min(numTwo, numFive);
+    }
+
+    public int smallestDifference(int[] arr1, int[] arr2) {
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        int ptr1 = 0;
+        int ptr2 = 0;
+        int minDiff = Integer.MAX_VALUE;
+
+        while (ptr1 < arr1.length && ptr2 < arr2.length) {
+            int diff = Math.abs(arr1[ptr1] - arr2[ptr2]);
+            if (diff < minDiff) {
+                minDiff = diff;
+            }
+
+            if (arr1[ptr1] > arr2[ptr2]) {
+                ptr2++;
+            } else {
+                ptr1++;
+            }
+        }
+
+        return minDiff;
+    }
+
+    public boolean ticTacWin(char[][] board) {
+        // exclude an invalid board
+        if (board.length != board[0].length) {
+            return false;
+        }
+
+        // chech a diagonal condition
+        if (compareDiagonal(board)) {
+            return true;
+        }
+
+        // set an array to compare with each row or col
+        char[] winRowCol = new char[board.length];
+        for (int i = 0; i < board.length; i++) {
+            winRowCol[i] = 'o';
+        }
+
+        // traverse a board
+        for (int row = 0; row < board.length; row++) {
+            if (compareRows(board[row], winRowCol)) {
+                return true;
+            }
+            if (row == 0) {
+                for (int col = 0; col < board.length; col++) {
+                    if (compareCols(winRowCol, row, col, board)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean compareRows(char[] row1, char[] row2) {
+        for (int i = 0; i < row1.length; i++) {
+            if (row1[i] != row2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean compareCols(char[] cols, int row, int col, char[][] board) {
+        for (int r = 0; r < board.length; r++) {
+            if (cols[r] != board[r][col]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean compareDiagonal(char[][] board) {
+        int currPos = 0;
+        boolean won = true;
+
+        while (currPos < board.length) {
+            if (board[currPos][currPos] == 'x') {
+                won = false;
+                break;
+            }
+            currPos++;
+        }
+
+        if (!won) {
+            currPos = board.length - 1;
+            while (currPos >= 0) {
+                if (board[board.length - currPos - 1][currPos] == 'x') {
+                    return false;
+                }
+                currPos--;
+            }
+            won = true;
+        }
+
+        return won;
+    }
+
+
+    /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 
 
     // private ArrayList<String> divideStringsIntoWords(String str, HashSet<Character> puncs) {
     //     ArrayList<String> result = new ArrayList<>();
