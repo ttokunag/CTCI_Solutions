@@ -60,6 +60,56 @@ public class Recursion {
         return coinsHelper(n, coinArr, 0, new int[n + 1][coinArr.length]);
     }
 
+    public void printQueens(int size, int row, int[] cols) {
+        if (row == size) {
+            // TODO: implement printQueens
+            printQueens(cols);
+            return;
+        } else {
+            // find an appropriate place for a new queen
+            for (int col = 0; col < size; col++) {
+                if (checkValid(row, col, cols)) {
+                    cols[row] = col;
+                    printQueens(size, row + 1, cols);
+                    cols[row] = 0;
+                }
+            }
+            return;
+        }
+    }
+
+    public boolean checkValid(int row, int col, int[] cols) {
+        // look through all queens so far
+        for (int i = 0; i < row; i++) {
+            // column check
+            if (col == cols[i]) {
+                return false;
+            }
+            // diagonal check
+            if (row - i == Math.abs(col - cols[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void printQueens(int[] cols) {
+        for (int i = 0; i < cols.length; i++) {
+            for (int j = 0; j < cols.length; j++) {
+                if (j == cols[i]) {
+                    System.out.print("Q ");
+                } else {
+                    System.out.print("* ");
+                }
+
+                if (j == cols.length - 1) {
+                    System.out.println();
+                }
+            }
+        }
+        System.out.println();
+    }
+
 
 /* ****************************** PRIVATE FUNCTIONS ****************************** */ 
 

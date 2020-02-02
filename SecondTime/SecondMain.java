@@ -29,7 +29,10 @@ public class SecondMain {
 		// System.out.println(m.occurrenceOfWords(str, "This"));
 		// System.out.println(m.occurrenceOfWords(str, "That"));
 
-		System.out.println(r.coins(20050));
+		// System.out.println(r.coins(20050));
+
+		int size = 4;
+		r.printQueens(size, 0, new int[size]);
 
 		System.out.println("--------------------------------------------------");
 	}
