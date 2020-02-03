@@ -148,29 +148,71 @@ public class Moderate {
         return  result;
     }
 
-    private String englishIntHelper(int num, int unitIdx, String[] large, String[] medium, String[] small) {
-        String result;
-        int currNum = num;
+    public class People {
+        int birthYear;
+        int deathYear;
+        boolean inRange;
 
-        // deal with the last two digit
-        int digit = currNum % 100;
-        if (digit < 20 && digit > 0) {
-            result = small[digit];
-        } else {
-            digit = digit % 10;
-            result = small[digit];
-            int temp = currNum / 10;
-            digit = temp % 10;
-            result = medium[digit - 2] + " " + result;
+        public People(int birthYear, int deathYear) {
+            this.birthYear = birthYear;
+            this.deathYear = deathYear;
+            inRange = false;
+        }
+    }
+
+    class SortPeople implements Comparator<People> {
+        public int compare(People p1, People p2) {
+            return p1.birthYear - p2.birthYear;
+        }
+    }
+
+    public int livingPeople(People[] people) {
+        // sort a given array based on their birthYear
+        Arrays.sort(people, new SortPeople());
+
+        int theYear = Integer.MIN_VALUE;    // returned at the end
+        int minDeathYear = Integer.MAX_VALUE;
+        int maxCount = Integer.MIN_VALUE;
+        int counter = 0;
+
+        for (int i = 0; i < people.length; i++) {
+            People person = people[i];
+
+            if (person.birthYear > minDeathYear) {
+                // updates maxCount
+                if (counter > maxCount) {
+                    maxCount = counter;
+                    theYear = minDeathYear;
+                }
+
+                // remove people out of a current range
+                for (int j = 0; j < i; j++) {
+                    People pastPerson = people[j];
+                    if (pastPerson.deathYear < person.birthYear) {
+                        pastPerson.inRange = false;
+                        counter--;
+                    } else {
+                        minDeathYear =
+                            (minDeathYear < person.deathYear) ? minDeathYear : person.deathYear;
+                    }
+                }
+            }
+
+            // update a current person
+            person.inRange = true;
+            counter++;
+
+            // update a current minimum death year
+            if (person.deathYear < minDeathYear) {
+                minDeathYear = person.deathYear;
+            }
         }
 
-        // deal with the head digit
-        currNum = currNum / 100;
-        if (currNum > 0) {
-            result = small[currNum] + " Hundred " + result;
-        }
+        // if (counter > maxCount) {
+        //     theYear = minDeathYear;
+        // }
 
-        return result;
+        return theYear;
     }
 
 
@@ -237,6 +279,31 @@ public class Moderate {
         }
 
         return won;
+    }
+
+    private String englishIntHelper(int num, int unitIdx, String[] large, String[] medium, String[] small) {
+        String result;
+        int currNum = num;
+
+        // deal with the last two digit
+        int digit = currNum % 100;
+        if (digit < 20 && digit > 0) {
+            result = small[digit];
+        } else {
+            digit = digit % 10;
+            result = small[digit];
+            int temp = currNum / 10;
+            digit = temp % 10;
+            result = medium[digit - 2] + " " + result;
+        }
+
+        // deal with the head digit
+        currNum = currNum / 100;
+        if (currNum > 0) {
+            result = small[currNum] + " Hundred " + result;
+        }
+
+        return result;
     }
 
 }

@@ -1,6 +1,7 @@
 import java.util.*;
 
 import SecondTimePackage.*;
+import SecondTimePackage.Moderate.People;
 
 public class SecondMain {
 	
@@ -60,7 +61,15 @@ public class SecondMain {
 		// System.out.println(m.ticTacWin(board));
 
 
-		System.out.println(m.englishInt(1234567891));
+		// System.out.println(m.englishInt(1234567891));
+
+		People[] people = {
+			m.new People(1920, 1930), m.new People(1900, 1920), 
+			m.new People(1921, 1935), m.new People(1910, 1925), 
+			m.new People(1905, 1915)
+		};
+
+		System.out.println(m.livingPeople(people));
 
 		System.out.println("--------------------------------------------------");
 	}
