@@ -2,6 +2,7 @@ import java.util.*;
 
 import SecondTimePackage.*;
 import SecondTimePackage.Moderate.People;
+import SecondTimePackage.Moderate.Person;
 
 public class SecondMain {
 	
@@ -63,13 +64,46 @@ public class SecondMain {
 
 		// System.out.println(m.englishInt(1234567891));
 
-		People[] people = {
-			m.new People(1920, 1930), m.new People(1900, 1920), 
-			m.new People(1921, 1935), m.new People(1910, 1925), 
-			m.new People(1905, 1915)
-		};
+		// People[] _people = {
+		// 	m.new People(1920, 1930), m.new People(1900, 1920), 
+		// 	m.new People(1921, 1935), m.new People(1910, 1925), 
+		// 	m.new People(1905, 1915)
+		// };
+		// System.out.println(m.livingPeople(_people));
 
-		System.out.println(m.livingPeople(people));
+		int n = 10;
+		int first = 0;
+		int last = 200000;
+		Random random = new Random();
+		Person[] people = new Person[n];
+		People[] _people = new People[n];
+		for (int i = 0; i < n; i++) {
+			int birth = first + random.nextInt(last - first);
+			int death = birth + random.nextInt(last - birth);
+			people[i] = m.new Person(birth, death);
+			//System.out.println(birth + ", " + death);
+			_people[i] = m.new People(birth, death);
+		}
+		
+		// System.out.println(n);
+		// for (int i = 0; i < n; i++) {
+		// 	//int birth = first + random.nextInt(last - first);
+		// 	//int death = birth + random.nextInt(last - birth);
+		// 	//people[i] = new Person(birth, death);
+		// 	System.out.println(people[i].birth);
+		// }
+		// System.out.println(n);
+		// for (int i = 0; i < n; i++) {
+		// 	//int birth = first + random.nextInt(last - first);
+		// 	//int death = birth + random.nextInt(last - birth);
+		// 	//people[i] = new Person(birth, death);
+		// 	System.out.println(people[i].death);
+		// }		
+		
+		int year = m.maxAliveYear(people, first, last);
+		int _year = m.livingPeople(_people);
+		System.out.println(year);
+		System.out.println(_year);
 
 		System.out.println("--------------------------------------------------");
 	}

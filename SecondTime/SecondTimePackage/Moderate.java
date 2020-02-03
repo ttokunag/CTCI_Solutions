@@ -148,72 +148,7 @@ public class Moderate {
         return  result;
     }
 
-    public class People {
-        int birthYear;
-        int deathYear;
-        boolean inRange;
-
-        public People(int birthYear, int deathYear) {
-            this.birthYear = birthYear;
-            this.deathYear = deathYear;
-            inRange = false;
-        }
-    }
-
-    class SortPeople implements Comparator<People> {
-        public int compare(People p1, People p2) {
-            return p1.birthYear - p2.birthYear;
-        }
-    }
-
-    public int livingPeople(People[] people) {
-        // sort a given array based on their birthYear
-        Arrays.sort(people, new SortPeople());
-
-        int theYear = Integer.MIN_VALUE;    // returned at the end
-        int minDeathYear = Integer.MAX_VALUE;
-        int maxCount = Integer.MIN_VALUE;
-        int counter = 0;
-
-        for (int i = 0; i < people.length; i++) {
-            People person = people[i];
-
-            if (person.birthYear > minDeathYear) {
-                // updates maxCount
-                if (counter > maxCount) {
-                    maxCount = counter;
-                    theYear = minDeathYear;
-                }
-
-                // remove people out of a current range
-                for (int j = 0; j < i; j++) {
-                    People pastPerson = people[j];
-                    if (pastPerson.deathYear < person.birthYear) {
-                        pastPerson.inRange = false;
-                        counter--;
-                    } else {
-                        minDeathYear =
-                            (minDeathYear < person.deathYear) ? minDeathYear : person.deathYear;
-                    }
-                }
-            }
-
-            // update a current person
-            person.inRange = true;
-            counter++;
-
-            // update a current minimum death year
-            if (person.deathYear < minDeathYear) {
-                minDeathYear = person.deathYear;
-            }
-        }
-
-        // if (counter > maxCount) {
-        //     theYear = minDeathYear;
-        // }
-
-        return theYear;
-    }
+    
 
 
     /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 
