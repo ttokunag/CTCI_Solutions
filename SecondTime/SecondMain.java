@@ -68,8 +68,8 @@ public class SecondMain {
 		int size = 1000;
 		Person[] people = new Person[size];
 		for (int i = 0; i < size; i++) {
-			int year1 = rand.nextInt(3000);
-			int year2 = rand.nextInt(3000);
+			int year1 = rand.nextInt(4000);
+			int year2 = rand.nextInt(4000);
 			int birthYear = (year1 <= year2) ? year1 : year2;
 			int deathYear = (year1 >= year2) ? year1 : year2;
 			people[i] = m.new Person(birthYear, deathYear);
