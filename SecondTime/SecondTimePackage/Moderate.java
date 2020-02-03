@@ -122,6 +122,79 @@ public class Moderate {
         return false;
     }
 
+
+    public String englishInt(int num) {
+        if (num == 0) {
+            return "Zero";
+        }
+
+        String[] large = {""," Thousand ", " Million "," Billion ", " Trillion "};
+        String[] medium = {"Twenty","Thirty","Fourty","Fifty","Sixty","Seventy","Eighty","Ninety"};
+        String[] small = {
+            "","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven",
+            "Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"
+        };
+
+        int currNum = num;
+        int unitIdx = 0;
+        String result = "";
+        while (currNum > 0) {
+            String partial = englishIntHelper(currNum % 1000, unitIdx, large, medium, small);
+            result = partial + large[unitIdx] + result;
+            currNum = currNum / 1000;
+            unitIdx++;
+        }
+
+        return  result;
+    }
+
+    private String englishIntHelper(int num, int unitIdx, String[] large, String[] medium, String[] small) {
+        String result;
+        int currNum = num;
+
+        // deal with the last two digit
+        int digit = currNum % 100;
+        if (digit < 20 && digit > 0) {
+            result = small[digit];
+        } else {
+            digit = digit % 10;
+            result = small[digit];
+            int temp = currNum / 10;
+            digit = temp % 10;
+            result = medium[digit - 2] + " " + result;
+        }
+
+        // deal with the head digit
+        currNum = currNum / 100;
+        if (currNum > 0) {
+            result = small[currNum] + " Hundred " + result;
+        }
+
+        return result;
+    }
+
+
+    /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 
+
+    // private ArrayList<String> divideStringsIntoWords(String str, HashSet<Character> puncs) {
+    //     ArrayList<String> result = new ArrayList<>();
+
+    //     int startIndex = 0;
+    //     for (int i = 0; i < str.length(); i++) {
+    //         char currChar = str.charAt(i);
+    //         if (currChar == ' ' || puncs.contains(currChar) || String.valueOf(currChar).equals("'")) {
+    //             if (i != startIndex) {
+    //                 result.add(str.substring(startIndex, i));
+    //             }
+    //             startIndex = i + 1;
+    //         } else if (i == str.length() - 1) {
+    //             result.add(str.substring(startIndex, i + 1));
+    //         }
+    //     }
+
+    //     return result;
+    // }
+
     private boolean compareRows(char[] row1, char[] row2) {
         for (int i = 0; i < row1.length; i++) {
             if (row1[i] != row2[i]) {
@@ -165,27 +238,5 @@ public class Moderate {
 
         return won;
     }
-
-
-    /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 
-
-    // private ArrayList<String> divideStringsIntoWords(String str, HashSet<Character> puncs) {
-    //     ArrayList<String> result = new ArrayList<>();
-
-    //     int startIndex = 0;
-    //     for (int i = 0; i < str.length(); i++) {
-    //         char currChar = str.charAt(i);
-    //         if (currChar == ' ' || puncs.contains(currChar) || String.valueOf(currChar).equals("'")) {
-    //             if (i != startIndex) {
-    //                 result.add(str.substring(startIndex, i));
-    //             }
-    //             startIndex = i + 1;
-    //         } else if (i == str.length() - 1) {
-    //             result.add(str.substring(startIndex, i + 1));
-    //         }
-    //     }
-
-    //     return result;
-    // }
 
 }

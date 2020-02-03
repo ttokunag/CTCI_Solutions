@@ -50,14 +50,17 @@ public class SecondMain {
 		// System.out.println(m.smallestDifference(new int[]{1,3,14,11,2}, new int[]{23,127,235,19,8}));
 
 
-		char[][] board = {
-			{'o','x','o','o'},
-			{'x','x','x','o'},
-			{'o','o','x','o'},
-			{'o','o','x','o'}
-		};
+		// char[][] board = {
+		// 	{'o','x','o','o'},
+		// 	{'x','x','x','o'},
+		// 	{'o','o','x','o'},
+		// 	{'o','o','x','o'}
+		// };
 
-		System.out.println(m.ticTacWin(board));
+		// System.out.println(m.ticTacWin(board));
+
+
+		System.out.println(m.englishInt(1234567891));
 
 		System.out.println("--------------------------------------------------");
 	}
