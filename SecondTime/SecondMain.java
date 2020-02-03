@@ -1,6 +1,7 @@
 import java.util.*;
 
 import SecondTimePackage.*;
+import SecondTimePackage.Moderate.Person;
 
 public class SecondMain {
 	
@@ -63,12 +64,19 @@ public class SecondMain {
 
 		// System.out.println(m.englishInt(1234567891));
 
-		// People[] _people = {
-		// 	m.new People(1920, 1930), m.new People(1900, 1920), 
-		// 	m.new People(1921, 1935), m.new People(1910, 1925), 
-		// 	m.new People(1905, 1915)
-		// };
-		// System.out.println(m.livingPeople(_people));
+		Random rand = new Random();
+		int size = 1000;
+		Person[] people = new Person[size];
+		for (int i = 0; i < size; i++) {
+			int year1 = rand.nextInt(3000);
+			int year2 = rand.nextInt(3000);
+			int birthYear = (year1 <= year2) ? year1 : year2;
+			int deathYear = (year1 >= year2) ? year1 : year2;
+			people[i] = m.new Person(birthYear, deathYear);
+		}
+
+		System.out.println(m.livingPeople(people));
+		System.out.println(s.maxAliveYear(people, 0, 3000));
 
 
 		System.out.println("--------------------------------------------------");

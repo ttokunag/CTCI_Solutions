@@ -148,7 +148,56 @@ public class Moderate {
         return  result;
     }
 
-    
+    public class Person {
+        public int birth;
+        public int death;
+        public Person(int birth, int death) {
+            this.birth = birth;
+            this.death = death;
+        }
+    }
+
+    public int livingPeople(Person[] people) {
+        int[] births = sortedYear(people, true);
+        int[] deaths = sortedYear(people, false);
+
+        int counter = 0;
+        int maxCounter = Integer.MIN_VALUE;
+        int theYear = Integer.MIN_VALUE;
+
+        int birthPointer = 0;
+        int deathPointer = 0;
+
+        while (birthPointer < births.length && deathPointer < deaths.length) {
+            if (births[birthPointer] <= deaths[deathPointer]) {
+                counter++;
+                if (maxCounter < counter) {
+                    maxCounter = counter;
+                    theYear = births[birthPointer];
+                }
+                if (births[birthPointer] == deaths[deathPointer]) {
+                    counter--;
+                    deathPointer++;
+                }
+                birthPointer++;
+            } else {
+                counter--;
+                deathPointer++;
+            }
+        }
+
+        return theYear;
+    }
+
+    private int[] sortedYear(Person[] people, boolean isBirth) {
+        int[] result = new int[people.length];
+        for (int i = 0; i < people.length; i++) {
+            result[i] = isBirth ? people[i].birth : people[i].death;
+        }
+
+        Arrays.sort(result);
+        return result;
+    }
 
 
     /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 

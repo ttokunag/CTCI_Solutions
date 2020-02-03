@@ -2,18 +2,20 @@ package SecondTimePackage;
 
 import java.util.*;
 
+import SecondTimePackage.Moderate.Person;
+
 public class Solution {
 
-    public class Person {
-        int birth;
-        int death;
-        public Person(int birth, int death) {
-            this.birth = birth;
-            this.death = death;
-        }
-    }
+    // public class Person {
+    //     int birth;
+    //     int death;
+    //     public Person(int birth, int death) {
+    //         this.birth = birth;
+    //         this.death = death;
+    //     }
+    // }
 
-    public static int maxAliveYear(Person[] people, int min, int max) {
+    public int maxAliveYear(Person[] people, int min, int max) {
 		int maxAlive = 0;
 		int maxAliveYear = min;
 		
