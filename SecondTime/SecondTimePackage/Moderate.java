@@ -199,6 +199,50 @@ public class Moderate {
         return result;
     }
 
+    public String bisectSquares(double[][] square1, double[][] square2) {
+        double[] center1 = new double[2];
+        for (int i = 1; i < square1.length; i++) {
+            if (square1[0][0] != square1[i][0]) {
+                center1[0] = (square1[0][0] + square1[i][0]) / 2;
+            }
+            if (square1[0][1] != square1[i][1]) {
+                center1[1] = (square1[0][1] + square1[i][1]) / 2;
+            }
+        }
+        
+        double[] center2 = new double[2];
+        for (int i = 1; i < square2.length; i++) {
+            if (square2[0][0] != square2[i][0]) {
+                center2[0] = (square2[0][0] + square2[i][0]) / 2;
+            }
+            if (square2[0][1] != square2[i][1]) {
+                center2[1] = (square2[0][1] + square2[i][1]) / 2;
+            }
+        }
+
+        if (center1[0] == center2[0]) {
+            if (center1[1] == center2[1]) {
+                return "Any line which passes through (" + center1[0] + ", " + center2[0] + ")";
+            }
+            else {
+                return "x = " + center1[0];
+            }
+        }
+        
+        double[] abPair = buildLine(center1, center2);
+        String result = "y = " + abPair[0] + "x " + ((abPair[1] >= 0) ? "+ " : "- ") + abPair[1];
+        
+        return result;
+    }
+        
+    private double[] buildLine(double[] point1, double[] point2) {
+        double a = (point1[1] - point2[1]) / (point1[0] - point2[0]);
+        double b = point1[1] - a * point1[0];
+        
+        return new double[] {a, b};
+    }
+        
+
 
     /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 
 

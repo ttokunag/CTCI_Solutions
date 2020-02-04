@@ -64,19 +64,24 @@ public class SecondMain {
 
 		// System.out.println(m.englishInt(1234567891));
 
-		Random rand = new Random();
-		int size = 1000;
-		Person[] people = new Person[size];
-		for (int i = 0; i < size; i++) {
-			int year1 = rand.nextInt(4000);
-			int year2 = rand.nextInt(4000);
-			int birthYear = (year1 <= year2) ? year1 : year2;
-			int deathYear = (year1 >= year2) ? year1 : year2;
-			people[i] = m.new Person(birthYear, deathYear);
-		}
+		// Random rand = new Random();
+		// int size = 1000;
+		// Person[] people = new Person[size];
+		// for (int i = 0; i < size; i++) {
+		// 	int year1 = rand.nextInt(4000);
+		// 	int year2 = rand.nextInt(4000);
+		// 	int birthYear = (year1 <= year2) ? year1 : year2;
+		// 	int deathYear = (year1 >= year2) ? year1 : year2;
+		// 	people[i] = m.new Person(birthYear, deathYear);
+		// }
 
-		System.out.println(m.livingPeople(people));
-		System.out.println(s.maxAliveYear(people, 0, 3000));
+		// System.out.println(m.livingPeople(people));
+		// System.out.println(s.maxAliveYear(people, 0, 3000));
+
+
+		double[][] s1 = {{3,-3},{1,-1},{1,-3},{3,-1}};
+		double[][] s2 = {{4,0},{4,1},{5,1},{5,0}};
+		System.out.println(m.bisectSquares(s1, s2));
 
 
 		System.out.println("--------------------------------------------------");
