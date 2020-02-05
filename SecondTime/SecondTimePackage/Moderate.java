@@ -241,6 +241,71 @@ public class Moderate {
         
         return new double[] {a, b};
     }
+
+    public int[] subSortRange(int[] arr) {
+        int indexOfFirstLargest = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length -1 ; i++) {
+            if (arr[i + 1] < arr[i]) {
+                indexOfFirstLargest = i;
+                break;
+            }
+        }
+        // when a given array is already sorted
+        if (indexOfFirstLargest == Integer.MIN_VALUE) {
+            return new int[2];
+        }
+        
+        // Second pass begins
+        int indexForSecondPass = Integer.MIN_VALUE;
+        int indexForMinUnsorted = Integer.MIN_VALUE;
+        for (int i = arr.length - 1; i > indexOfFirstLargest; i--) {
+            if ((arr[i - 1] > arr[i] || arr[i] < arr[indexOfFirstLargest]) 
+                && indexForSecondPass == Integer.MIN_VALUE) {
+                indexForSecondPass = i;
+            }
+            if (indexForMinUnsorted == Integer.MIN_VALUE || arr[i] < arr[indexForMinUnsorted]) {
+                indexForMinUnsorted = i;
+            }
+        }
+        
+        // Third pass begins
+        int indexForThirdPass = Integer.MIN_VALUE;
+        for (int i = 0; i <= indexForSecondPass; i++) {
+            if (arr[i] > arr[indexForMinUnsorted]) {
+                indexForThirdPass = i;
+                break;
+            }
+        }
+        
+        return new int[] {indexForThirdPass, indexForSecondPass};
+    }
+
+
+    public int[] subSortBF(int[] arr) {
+        int[] clone = arr.clone();
+        Arrays.sort(clone);
+        
+        int indexFirstDiff = Integer.MIN_VALUE;
+        int indexOfDiff = Integer.MIN_VALUE;
+        
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != clone[i]) {
+                indexOfDiff = i;
+                if (indexFirstDiff == Integer.MIN_VALUE) {
+                    indexFirstDiff = i;
+                }
+            }
+        }
+        
+        // when a given array is sorted
+        if (indexFirstDiff == Integer.MIN_VALUE) {
+            return new int[2];
+        }
+        
+        return new int[] {indexFirstDiff, indexOfDiff};
+    }
+        
+        
         
 
 

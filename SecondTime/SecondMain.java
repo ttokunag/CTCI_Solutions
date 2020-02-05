@@ -79,9 +79,15 @@ public class SecondMain {
 		// System.out.println(s.maxAliveYear(people, 0, 3000));
 
 
-		double[][] s1 = {{3,-3},{1,-1},{1,-3},{3,-1}};
-		double[][] s2 = {{4,0},{4,1},{5,1},{5,0}};
-		System.out.println(m.bisectSquares(s1, s2));
+		// double[][] s1 = {{3,-3},{1,-1},{1,-3},{3,-1}};
+		// double[][] s2 = {{4,0},{4,1},{5,1},{5,0}};
+		// System.out.println(m.bisectSquares(s1, s2));
+
+
+		int[] arr = {1,2,4,7,10,11,7,12,6,7,16,18,19};
+		int[] arr1 = {1,2,4,7,10,11,7,12,6,7,16,19,18};
+		int[] result = m.subSortRange(arr1);
+		System.out.println(result[0] + ", " + result[1]);
 
 
 		System.out.println("--------------------------------------------------");
