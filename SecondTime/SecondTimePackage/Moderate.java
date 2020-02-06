@@ -243,41 +243,52 @@ public class Moderate {
     }
 
     public int[] subSortRange(int[] arr) {
-        int indexOfFirstLargest = Integer.MIN_VALUE;
+        int firstUnsorted = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length -1 ; i++) {
             if (arr[i + 1] < arr[i]) {
-                indexOfFirstLargest = i;
+                firstUnsorted = i;
                 break;
             }
         }
         // when a given array is already sorted
-        if (indexOfFirstLargest == Integer.MIN_VALUE) {
+        if (firstUnsorted == Integer.MIN_VALUE) {
             return new int[2];
         }
         
         // Second pass begins
-        int indexForSecondPass = Integer.MIN_VALUE;
-        int indexForMinUnsorted = Integer.MIN_VALUE;
-        for (int i = arr.length - 1; i > indexOfFirstLargest; i--) {
-            if ((arr[i - 1] > arr[i] || arr[i] < arr[indexOfFirstLargest]) 
-                && indexForSecondPass == Integer.MIN_VALUE) {
-                indexForSecondPass = i;
+        int lastUnsorted = Integer.MIN_VALUE;
+        int minUnsorted = Integer.MIN_VALUE;
+        for (int i = arr.length - 1; i > firstUnsorted; i--) {
+            if ((arr[i - 1] > arr[i] || arr[i] < arr[firstUnsorted]) 
+                && lastUnsorted == Integer.MIN_VALUE) {
+                lastUnsorted = i;
             }
-            if (indexForMinUnsorted == Integer.MIN_VALUE || arr[i] < arr[indexForMinUnsorted]) {
-                indexForMinUnsorted = i;
+            if (minUnsorted == Integer.MIN_VALUE || arr[i] < arr[minUnsorted]) {
+                minUnsorted = i;
             }
         }
         
         // Third pass begins
-        int indexForThirdPass = Integer.MIN_VALUE;
-        for (int i = 0; i <= indexForSecondPass; i++) {
-            if (arr[i] > arr[indexForMinUnsorted]) {
-                indexForThirdPass = i;
+        int unsortedBegin = Integer.MIN_VALUE;
+        int maxUnsorted = Integer.MIN_VALUE;
+        for (int i = 0; i <= lastUnsorted; i++) {
+            if (unsortedBegin == Integer.MIN_VALUE && arr[i] > arr[minUnsorted]) {
+                unsortedBegin = i;
+            }
+            if (maxUnsorted == Integer.MIN_VALUE || arr[i] > arr[maxUnsorted]) {
+                maxUnsorted = i;
+            }
+        }
+
+        int unsortedEnd = Integer.MIN_VALUE;
+        for (int i = arr.length - 1; i >= maxUnsorted; i--) {
+            if (arr[i] < arr[maxUnsorted]) {
+                unsortedEnd = i;
                 break;
             }
         }
         
-        return new int[] {indexForThirdPass, indexForSecondPass};
+        return new int[] {unsortedBegin, unsortedEnd};
     }
 
 
@@ -305,8 +316,79 @@ public class Moderate {
         return new int[] {indexFirstDiff, indexOfDiff};
     }
         
+    public int[] largestInterval(int[] arr) {
+        int runSum = 0;
+        int startIndex = 0;
+        int maxSum = Integer.MIN_VALUE;
+        int maxStartIndex = 0;
+        int maxEndIndex = 0;
         
+        for (int i = 0; i < arr.length; i++) {
+            runSum += arr[i];
+            
+            // check the sign of runSum
+            if (runSum <= 0) {
+                runSum = 0;
+                startIndex = i + 1;
+
+                // for the case all entries are negative
+                if (arr[i] > maxSum) {
+                    maxSum = arr[i];
+                    maxStartIndex = maxEndIndex = i;
+                }
+            } else {
+                if (runSum > maxSum) {
+                    maxSum = runSum;
+                    maxStartIndex = startIndex;
+                    maxEndIndex = i;
+                }
+            }
+        }
         
+        return new int[]{maxStartIndex, maxEndIndex};
+    }
+        
+    public HashSet<Integer> pondSize(int[][] map) {
+        HashSet<Integer> ponds = new HashSet<>();
+        for (int row = 0; row < map.length; row++) {
+            for (int col = 0; col < map[0].length; col++) {
+                if (map[row][col] == 0) {
+                    pondHelper(map, row, col, ponds);
+                }
+            }
+        }
+
+        return ponds;
+    }
+
+    private void pondHelper(int[][] map, int row, int col, HashSet<Integer> ponds) {
+        map[row][col] = -1;
+        
+        int pondSize = 1;
+        LinkedList<Integer[]> queue = new LinkedList<>();
+        queue.addLast(new Integer[] {row, col});
+
+        int[] rows = {-1,-1,-1,0,0,0,1,1,1};
+        int[] cols = {-1,0,1,-1,0,1,-1,0,1};
+
+        while (!queue.isEmpty()) {
+            Integer[] currPos = queue.removeFirst();
+            for (int i = 0; i < rows.length; i++) {
+                if (validCell(map, currPos[0] + rows[i], currPos[1] + cols[i])) {
+                    map[currPos[0] + rows[i]][currPos[1] + cols[i]] = -1;
+                    pondSize++;
+                    queue.addLast(new Integer[] {currPos[0] + rows[i], currPos[1] + cols[i]});
+                }
+            }
+        }
+
+        ponds.add(pondSize);
+    }
+
+    private boolean validCell(int[][] map, int row, int col) {
+        return (row >= 0 && row < map.length) && (col >= 0 && col < map[0].length)
+                && map[row][col] == 0;
+    }
 
 
     /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 

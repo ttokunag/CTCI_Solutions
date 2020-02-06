@@ -84,10 +84,29 @@ public class SecondMain {
 		// System.out.println(m.bisectSquares(s1, s2));
 
 
-		int[] arr = {1,2,4,7,10,11,7,12,6,7,16,18,19};
-		int[] arr1 = {1,2,4,7,10,11,7,12,6,7,16,19,18};
-		int[] result = m.subSortRange(arr1);
-		System.out.println(result[0] + ", " + result[1]);
+		// int[] arr = {1,2,4,7,10,11,7,12,6,7,16,18,19};
+		// int[] arr1 = {1,2,4,7,10,11,7,12,6,7,16,19,18};
+		// int[] result = m.subSortRange(arr);
+		// System.out.println(result[0] + ", " + result[1]);
+
+
+		// int[] arr = {2,-8,3,-2,4,-10};
+		// int[] arrPos = {1,2,3,4,5,6};
+		// int[] arrNeg = {-5,-2,-3,-4,-9};
+		// int[] arrZero = {0,0,0};
+		// int[] res = m.largestInterval(arrZero);
+		// System.out.println(res[0] + ", " + res[1]);
+
+		int[][] map = {
+			{0,2,1,0},
+			{0,1,0,1},
+			{1,0,0,1},
+			{0,1,0,1}
+		};
+		HashSet<Integer> result = m.pondSize(map);
+		for (Integer p : result) {
+			System.out.println(p);
+		}
 
 
 		System.out.println("--------------------------------------------------");
