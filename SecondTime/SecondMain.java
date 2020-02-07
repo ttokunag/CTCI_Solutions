@@ -97,15 +97,23 @@ public class SecondMain {
 		// int[] res = m.largestInterval(arrZero);
 		// System.out.println(res[0] + ", " + res[1]);
 
-		int[][] map = {
-			{0,2,1,0},
-			{0,1,0,1},
-			{1,0,0,1},
-			{0,1,0,1}
-		};
-		HashSet<Integer> result = m.pondSize(map);
-		for (Integer p : result) {
-			System.out.println(p);
+
+		// int[][] map = {
+		// 	{0,2,1,0},
+		// 	{0,1,0,1},
+		// 	{1,0,0,1},
+		// 	{0,1,0,1}
+		// };
+		// HashSet<Integer> result = m.pondSize(map);
+		// for (Integer p : result) {
+		// 	System.out.println(p);
+		// }
+
+		ArrayList<String> validWords = new ArrayList<>();
+		Collections.addAll(validWords, new String[] {"apple", "tree", "used", "pink"});
+
+		for (String word : m.T9("8733", validWords)) {
+			System.out.println(word);
 		}
 
 

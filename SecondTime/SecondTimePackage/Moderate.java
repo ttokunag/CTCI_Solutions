@@ -390,6 +390,43 @@ public class Moderate {
                 && map[row][col] == 0;
     }
 
+    public ArrayList<String> T9(String numInput, ArrayList<String> validWords) {
+        // build a hash map
+        HashMap<Character, String> numberMap = new HashMap<>();
+        
+        // num-val pair
+        char[] nums = {'2','3','4','5','6','7','8','9'};
+        String[] vals = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        
+        for (int i = 0; i < nums.length; i++) {
+        numberMap.put(nums[i], vals[i]);
+        }
+        
+        ArrayList<String> result = new ArrayList<>();
+        T9Helper(numInput, "", result,  numberMap, validWords);
+        
+        return result;
+    }
+        
+    private void T9Helper(String input, String predict, ArrayList<String> result, 
+        HashMap<Character, String> keyMap, ArrayList<String> validWords) {
+        // base case: when all the input numbers are processed
+        if (input.length() == 0) {
+            if (validWords.contains(predict))
+                result.add(predict);
+            return;
+        }
+        
+        char headNum = input.charAt(0);
+        String alphabets = keyMap.get(headNum);
+        String nextInput = input.substring(1, input.length());
+        
+        for (char letter : alphabets.toCharArray()) {
+            T9Helper(nextInput, predict + letter, result, keyMap, validWords);
+        }
+    }
+        
+
 
     /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 
 
