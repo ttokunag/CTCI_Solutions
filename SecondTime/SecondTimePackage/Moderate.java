@@ -425,6 +425,111 @@ public class Moderate {
             T9Helper(nextInput, predict + letter, result, keyMap, validWords);
         }
     }
+
+    public double calculator(String equation) {
+        int startIdx = 0;
+        double result = 0;
+        boolean addNext = true;
+        
+        for (int i = 0; i < equation.length(); i++) {
+            char curr = equation.charAt(i);
+
+            if (curr == '+' || curr == '-') {
+                double adder = calculate(equation.substring(startIdx, i));
+                if (adder == Double.MIN_VALUE) {
+                    return adder;
+                }
+
+                result += addNext ? adder : (-1) * adder;
+                startIdx = i + 1;
+                addNext = (curr == '+');
+            }
+        }
+        
+        double adder = calculate(equation.substring(startIdx, equation.length()));
+        result += addNext ? adder : (-1) * adder;
+        
+        return result;
+    }
+        
+    private double calculate(String equation) {
+        int startIdx = 0;
+        double result = 0;
+        boolean nextMult = false;
+        boolean nextDiv = false;
+        
+        for (int i = 0; i < equation.length(); i++) {
+            char curr = equation.charAt(i);
+
+            if (curr == '*' || curr == '/') {
+                // at the very first time encountering '*' or '/'
+                if (!nextMult && !nextDiv) {
+                    result += Integer.valueOf(equation.substring(startIdx, i));
+                    nextDiv = true;
+                } else {
+                    int num = Integer.valueOf(equation.substring(startIdx, i));
+                    if (!nextMult) {
+                        result /= num;
+                        if (Double.isInfinite(result)) {
+                            System.out.println("Zero Division Error Occurred");
+                            return Double.MIN_VALUE;
+                        }
+                    } else {
+                        result *= num;
+                    }
+                }
+                
+                startIdx = i + 1;
+                nextMult = (curr == '*');
+            }
+        }
+        
+        if (!nextMult && !nextDiv) {
+            result = Integer.valueOf(equation);
+        } else {
+            int num = Integer.valueOf(equation.substring(startIdx, equation.length()));
+            result = nextMult ? result * num : result / num;
+        }
+        
+        return result;
+    }
+        
+    public void masterMind(String solution, String guess) {
+        if (solution.length() != guess.length()) {
+            System.out.println("Invalid solution or guess");
+            return;
+        }
+        // a hash table which records a count of each letter in a given solution
+        HashMap<Character, Integer> count = new HashMap<>();
+        
+        int hits = 0;
+        int pseudoHits = 0;
+        
+        for (int i = 0; i < solution.length(); i++) {
+            if (solution.charAt(i) == guess.charAt(i)) {
+                hits++;
+            } else {
+                // make a record for counting pseudo-hits later
+                char curr = solution.charAt(i);
+                count.put(curr, count.getOrDefault(curr, 0) + 1);
+            }
+        }
+        
+        for (char g : guess.toCharArray()) {
+            if (count.containsKey(g)) {
+                pseudoHits++;
+                count.put(g, count.getOrDefault(g, 0) - 1);
+                
+                // remove unnecessary key-value pair
+                if (count.get(g) == 0) {
+                    count.remove(g);
+                }
+            }
+        }
+        
+        System.out.printf("Hits: %d\nPseudo-hits: %d\n", hits, pseudoHits);
+        return;
+    }
         
 
 

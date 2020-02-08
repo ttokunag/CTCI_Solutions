@@ -109,12 +109,16 @@ public class SecondMain {
 		// 	System.out.println(p);
 		// }
 
-		ArrayList<String> validWords = new ArrayList<>();
-		Collections.addAll(validWords, new String[] {"apple", "tree", "used", "pink"});
+		// ArrayList<String> validWords = new ArrayList<>();
+		// Collections.addAll(validWords, new String[] {"apple", "tree", "used", "pink"});
 
-		for (String word : m.T9("8733", validWords)) {
-			System.out.println(word);
-		}
+		// for (String word : m.T9("8733", validWords)) {
+		// 	System.out.println(word);
+		// }
+
+		// System.out.println(m.calculator("2*3+5/4*3+15"));
+
+		m.masterMind("RGBY", "GGRR");
 
 
 		System.out.println("--------------------------------------------------");
