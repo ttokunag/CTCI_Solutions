@@ -118,7 +118,17 @@ public class SecondMain {
 
 		// System.out.println(m.calculator("2*3+5/4*3+15"));
 
-		m.masterMind("RGBY", "GGRR");
+		// m.masterMind("RGBY", "GGRR");
+
+		HashMap<Integer, Integer> count = new HashMap<>();
+		for (int i = 0; i < 7000; i++) {
+			int num = m.rand7();
+			count.put(num, count.getOrDefault(num, 0) + 1);
+		}
+
+		for (int key : count.keySet()) {
+			System.out.println(key + ": " + count.get(key));
+		}
 
 
 		System.out.println("--------------------------------------------------");

@@ -530,7 +530,20 @@ public class Moderate {
         System.out.printf("Hits: %d\nPseudo-hits: %d\n", hits, pseudoHits);
         return;
     }
-        
+    
+    public int rand5() {
+        Random r = new Random();
+        return r.nextInt(5);
+    }
+
+    public int rand7() {
+        while (true) {
+            int num = 5 * rand5() + rand5();
+            if (num < 21) {
+                return num % 7;
+            }
+        }
+    }
 
 
     /* *********************************************** PRIVATE FUNCTIONS *********************************************** */ 
