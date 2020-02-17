@@ -1,6 +1,7 @@
 import java.util.*;
 
 import SecondTimePackage.*;
+import SecondTimePackage.Hard.Name;
 import SecondTimePackage.Moderate.Person;
 
 public class SecondMain {
@@ -9,6 +10,7 @@ public class SecondMain {
 		Recursion r = new Recursion();
 		Moderate m = new Moderate();
 		Solution s = new Solution();
+		Hard h = new Hard();
 
 		System.out.println("\n--------------------------------------------------");
 
@@ -120,15 +122,28 @@ public class SecondMain {
 
 		// m.masterMind("RGBY", "GGRR");
 
-		HashMap<Integer, Integer> count = new HashMap<>();
-		for (int i = 0; i < 7000; i++) {
-			int num = m.rand7();
-			count.put(num, count.getOrDefault(num, 0) + 1);
-		}
+		// HashMap<Integer, Integer> count = new HashMap<>();
+		// for (int i = 0; i < 7000; i++) {
+		// 	int num = m.rand7();
+		// 	count.put(num, count.getOrDefault(num, 0) + 1);
+		// }
 
-		for (int key : count.keySet()) {
-			System.out.println(key + ": " + count.get(key));
-		}
+		// for (int key : count.keySet()) {
+		// 	System.out.println(key + ": " + count.get(key));
+		// }
+
+		Name[] names = {
+			h.new Name("John", 15), h.new Name("Jon", 12), h.new Name("Chris", 13), 
+			h.new Name("Kris", 4), h.new Name("Christopher", 19), h.new Name("Sam", 12)
+		};
+
+		ArrayList<String[]> synonyms = new ArrayList<>();
+		synonyms.add(new String[] {"Jon", "John"});
+		synonyms.add(new String[] {"John", "Johnny"});
+		synonyms.add(new String[] {"Chris", "Kris"});
+		synonyms.add(new String[] {"Chris", "Christopher"});
+
+		h.revisedList(names, synonyms);
 
 
 		System.out.println("--------------------------------------------------");
