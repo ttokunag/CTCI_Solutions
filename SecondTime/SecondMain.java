@@ -1,6 +1,7 @@
 import java.util.*;
 
 import SecondTimePackage.*;
+import SecondTimePackage.Hard.CircusPerson;
 import SecondTimePackage.Hard.Name;
 import SecondTimePackage.Moderate.Person;
 
@@ -132,18 +133,35 @@ public class SecondMain {
 		// 	System.out.println(key + ": " + count.get(key));
 		// }
 
-		Name[] names = {
-			h.new Name("John", 15), h.new Name("Jon", 12), h.new Name("Chris", 13), 
-			h.new Name("Kris", 4), h.new Name("Christopher", 19), h.new Name("Sam", 12)
-		};
 
-		ArrayList<String[]> synonyms = new ArrayList<>();
-		synonyms.add(new String[] {"Jon", "John"});
-		synonyms.add(new String[] {"John", "Johnny"});
-		synonyms.add(new String[] {"Chris", "Kris"});
-		synonyms.add(new String[] {"Chris", "Christopher"});
 
-		h.revisedList(names, synonyms);
+		// Name[] names = {
+		// 	h.new Name("John", 15), h.new Name("Jon", 12), h.new Name("Chris", 13), 
+		// 	h.new Name("Kris", 4), h.new Name("Christopher", 19), h.new Name("Sam", 12)
+		// };
+
+		// ArrayList<String[]> synonyms = new ArrayList<>();
+		// synonyms.add(new String[] {"Jon", "John"});
+		// synonyms.add(new String[] {"John", "Johnny"});
+		// synonyms.add(new String[] {"Chris", "Kris"});
+		// synonyms.add(new String[] {"Chris", "Christopher"});
+
+		// h.revisedList(names, synonyms);
+
+
+
+		// CircusPerson[] people = { 
+		// 	h.new CircusPerson(65,100), h.new CircusPerson(70,150), h.new CircusPerson(56,90),
+		// 	h.new CircusPerson(75,190), h.new CircusPerson(60,95), h.new CircusPerson(68,110)
+		// };
+
+		// ArrayList<CircusPerson> result = h.circusTower(people);
+		// for (CircusPerson p : result) {
+		// 	System.out.printf("(%d, %d) ", p.h, p.w);
+		// }
+		// System.out.println();
+
+		
 
 
 		System.out.println("--------------------------------------------------");

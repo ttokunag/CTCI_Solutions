@@ -44,7 +44,7 @@ public class Hard {
             Integer type = types.get(name.name);
             // when a name doesn't have a synonym name
             if (type == null) {
-                System.out.println("Name: " + name.name + " Freq: " + name.frequency);
+                System.out.println("Name: " + name.name + "(" + name.frequency + ")");
                 continue;
             }
 
@@ -60,9 +60,61 @@ public class Hard {
 
         for (int type : revisedNames.keySet()) {
             Name name = revisedNames.get(type);
-            System.out.println("Name: " + name.name + " Freq: " + name.frequency);
+            System.out.println("Name: " + name.name + "(" + name.frequency + ")");
         }
     }
+
+    public class CircusPerson {
+        public int h;
+        public int w;
+        public CircusPerson(int h, int w) {
+            this.h = h;
+            this.w = w;
+        }
+    }
+
+    class SortByHeight implements Comparator<CircusPerson> {
+        // sort CircusPerson objects in ascending order by height
+        public int compare(CircusPerson p1, CircusPerson p2) {
+            return p1.h - p2.h;
+        }
+    }
+
+    public ArrayList<CircusPerson> circusTower(CircusPerson[] people) {
+        // sort people by their height
+        CircusPerson[] sorted = people.clone();
+        Arrays.sort(sorted, new SortByHeight());    // O(Nlog(N)) time
+
+        ArrayList<CircusPerson> result = new ArrayList<>();
+        int maxNumPeople = Integer.MIN_VALUE;
+
+        for (int i = 0; i < sorted.length; i++) {   // O(N^2) time
+            CircusPerson top = sorted[i];
+            ArrayList<CircusPerson> temp = new ArrayList<>();
+            temp.add(top);
+            int numPeople = 1;
+
+            for (int j = i + 1; j < sorted.length; j++) {
+                CircusPerson curr = sorted[j];
+                if (curr.w > top.w) {
+                    temp.add(curr);
+                    numPeople++;
+                }
+            }
+
+            // update a max size
+            if (numPeople > maxNumPeople) {
+                maxNumPeople = numPeople;
+                result = temp;
+            }
+        }
+
+        return result;
+        // what if we cannot build a tower?
+    }
+
+
+    
 
 
 }
